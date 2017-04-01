@@ -24,9 +24,10 @@ schema_view = get_swagger_view(title='Jyoti Content Service API')
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/content/schema/', schema_view),
-    url(r'^api/content/create/job', JyotiContentService.as_view({'post': 'create_report'})),
+    url(r'^api/content/create/report', JyotiContentService.as_view({'post': 'create_report'})),
     url(r'^api/content/report/(?P<id>[0-9]+)', JyotiContentService.as_view({'get': 'get_report_by_id'})),
     url('r^api/content/report/(?P<reportType>\w+)', JyotiContentService.as_view({'get':'get_reports_by_report_type'})),
+    url('r^api/content/create/bulk/reports', JyotiContentService.as_view({'post':'create_bulk_reports'}))
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

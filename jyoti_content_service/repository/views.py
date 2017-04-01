@@ -4,12 +4,12 @@ import rest_framework.status as status
 from .serializers import ReportTableSerializer, LocationFactTableSerializer
 from .models import ReportTable, LocationFactTable
 from geopy.distance import great_circle
-from multiprocessing import Pool
-
+from jyoti_content_service.service.LoadTwitterFeedService import LoadTwitterFeedService
 
 class JyotiContentService(viewsets.ViewSet):
 
     RADIUS = 5
+    twitter_feed_service = LoadTwitterFeedService()
 
     def create_report(self, request):
         serializer = ReportTableSerializer(data=request.data)
@@ -48,3 +48,10 @@ class JyotiContentService(viewsets.ViewSet):
             return great_circle(source, destination).miles
         else:
             return None
+
+    def create_bulk_reports(self, request):
+        try:
+            self.twitter_feed_service.load_file()
+            return Response(status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response(status=status.HTTP_417_EXPECTATION_FAILED)
