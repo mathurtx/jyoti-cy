@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ReportTable, LocationFactTable
+from .models import *
 
 
 class ReportTableSerializer(serializers.ModelSerializer):
@@ -13,4 +13,10 @@ class LocationFactTableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LocationFactTable
+        fields = '__all__'
+
+class ReportCountFactTableSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReportCountFactTable
         fields = '__all__'
